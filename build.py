@@ -60,7 +60,7 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
              "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.") + f'''
 <header class="hero">
   <picture>
-    <source media="(max-width:600px)" srcset="img/hero-mobile.jpg">
+    <source media="(max-width:860px)" srcset="img/hero-phone.jpg">
     <img class="bg" src="img/hero-wide.jpg" alt="" width="2400" height="1738">
   </picture>
   {bar()}

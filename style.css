@@ -23,11 +23,11 @@ html.l-fr .langs [data-set=fr],html.l-en .langs [data-set=en]{background:var(--n
 .hero .bar{order:1;position:relative;z-index:2;width:100%}
 .hero-copy{order:2;position:relative;z-index:2;padding-top:12px;padding-bottom:28px;width:100%}
 .hero picture{order:3;position:relative;display:block}
-.hero .bg{display:block;width:100%;height:auto;aspect-ratio:1188/1000;object-fit:cover;object-position:50% 50%}
+.hero .bg{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 50%}
 /* the shading lives inside the photo's frame, so it always paints over it */
 .hero picture::before,.hero picture::after{content:'';position:absolute;pointer-events:none;z-index:1}
-.hero picture::before{inset:0 0 auto 0;height:clamp(28px,6vw,60px);background:linear-gradient(180deg,var(--ink),rgba(18,16,22,0))}
-.hero picture::after{inset:auto 0 0 0;height:clamp(36px,8vw,80px);background:linear-gradient(180deg,rgba(18,16,22,0),var(--ink))}
+.hero picture::before{inset:0 0 auto 0;height:90px;background:linear-gradient(180deg,var(--ink),rgba(18,16,22,0))}
+.hero picture::after{inset:auto 0 0 0;height:120px;background:linear-gradient(180deg,rgba(18,16,22,0),var(--ink))}
 .hero h1{font-size:clamp(48px,13vw,84px);margin:0 0 14px;text-shadow:0 4px 30px rgba(0,0,0,.35)}
 .hero p.lead{font-weight:900;font-size:clamp(18px,2.1vw,24px);margin:0 0 26px}
 .store{display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--ink);border-radius:16px;padding:12px 20px 12px 16px;text-decoration:none;font-weight:700}
