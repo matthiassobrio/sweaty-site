@@ -17,7 +17,7 @@ def head(t_fr, t_en, d_fr, d_en):
 <meta name="title-fr" content="{t_fr}"><meta name="title-en" content="{t_en}">
 <meta name="description" content="{d_en}">
 <meta property="og:title" content="{t_en}"><meta property="og:description" content="{d_en}">
-<meta property="og:image" content="https://matthiassobrio.github.io/sweaty-site/img/hero-wide.jpg">
+<meta property="og:image" content="https://matthiassobrio.github.io/sweaty-site/img/hero-wide-2.jpg">
 <meta name="theme-color" content="#121016">
 <meta name="apple-itunes-app" content="app-id=6825698984">
 <link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
@@ -62,8 +62,8 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
              "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.") + f'''
 <header class="hero">
   <picture>
-    <source media="(max-width:860px)" srcset="img/hero-phone-2.jpg">
-    <img class="bg" src="img/hero-wide.jpg" alt="" width="2400" height="1738">
+    <source media="(max-width:860px)" srcset="img/hero-phone-3.jpg">
+    <img class="bg" src="img/hero-wide-2.jpg" alt="" width="2400" height="1738">
   </picture>
   {bar()}
   <div class="wrap hero-copy">
