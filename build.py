@@ -16,7 +16,8 @@ def head(t_fr, t_en, d_fr, d_en):
 <meta name="description" content="{d_en}">
 <meta property="og:title" content="{t_en}"><meta property="og:description" content="{d_en}">
 <meta property="og:image" content="https://matthiassobrio.github.io/sweaty-site/img/hero-wide.jpg">
-<meta name="theme-color" content="#5E18F1">
+<meta name="theme-color" content="#121016">
+<meta name="apple-itunes-app" content="app-id=6825698984">
 <link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
 <link rel="stylesheet" href="style.css">
 <script src="lang.js"></script>
