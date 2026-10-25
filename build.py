@@ -15,7 +15,7 @@ def head(t_fr, t_en, d_fr, d_en):
 <meta name="title-fr" content="{t_fr}"><meta name="title-en" content="{t_en}">
 <meta name="description" content="{d_en}">
 <meta property="og:title" content="{t_en}"><meta property="og:description" content="{d_en}">
-<meta property="og:image" content="img/en-1-hook.jpg">
+<meta property="og:image" content="https://matthiassobrio.github.io/sweaty-site/img/hero-wide.jpg">
 <meta name="theme-color" content="#5E18F1">
 <link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
 <link rel="stylesheet" href="style.css">
@@ -54,53 +54,47 @@ def store():
 </span>'''
 
 # ---------------- index ----------------
-index = head("Sweaty · Le jeu de soirée qui fait suer", "Sweaty · The party game that makes you sweat",
-             "Des défis sportifs entre potes, sur un seul téléphone.", "Workout challenges with friends, on a single phone.") + f'''
+index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game that makes you sweat",
+             "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.") + f'''
 <header class="hero">
+  <picture>
+    <source media="(max-width:600px)" srcset="img/hero-tall.jpg">
+    <img class="bg" src="img/hero-wide.jpg" alt="" width="2400" height="1738">
+  </picture>
   {bar()}
-  <div class="wrap hero-grid">
-    <div class="hero-cta">
-      <h1>{F('Le jeu de soirée qui fait <span class="hl">suer.</span>','The party game that makes you <span class="hl">sweat.</span>')}</h1>
-      <p class="lead">{F("Des défis sportifs entre potes. Un seul téléphone.","Workout challenges with friends. One phone.")}</p>
-      {store()}
-    </div>
-    <div class="hero-shots">
-      <img class="shot" data-l="fr" src="img/hero-fr.jpg" alt="Écran de Sweaty : une tenue à quatre joueurs" width="920" height="1320">
-      <img class="shot" data-l="en" src="img/hero-en.jpg" alt="Sweaty screen: a four-player hold" width="920" height="1320">
-    </div>
+  <div class="wrap hero-copy">
+    <h1 class="display">{F('Le party game qui fait <span class="neon">suer.</span>','The party game that makes you <span class="neon">sweat.</span>')}</h1>
+    <p class="lead">{F("Un seul téléphone · 2 à 10 joueurs","One phone · 2–10 players")}</p>
+    {store()}
   </div>
 </header>
 
-<section class="band"><div class="wrap">
-  <h2>{F("Pose le téléphone. Bouge.","Put the phone down. Move.")}</h2>
-  <p class="sub">{F("Chacun son tour, une carte tombe. Tu la joues devant tout le monde. Le téléphone compte les points.","One card at a time. You play it in front of everyone. The phone keeps score.")}</p>
-  <div class="cards">
-    <div class="card c-neon"><h3>{F("Face-à-face","Face-offs")}</h3><p>{F("Deux joueurs, un défi. Le premier qui lâche a perdu.","Two players, one challenge. First to drop loses.")}</p><img src="img/armwrestle.webp" alt="" loading="lazy"></div>
-    <div class="card c-purple"><h3>{F("Tous ensemble","All together")}</h3><p>{F("Un chrono pour tout le monde. On touche celui qui craque.","One timer for everyone. Tap whoever cracks.")}</p><img src="img/dance.webp" alt="" loading="lazy"></div>
-    <div class="card c-blue"><h3>{F("Bats le record","Beat the record")}</h3><p>{F("Le plus de pompes, le plus long gainage. Le record reste.","Most push-ups, longest plank. The record stays.")}</p><img src="img/climber.webp" alt="" loading="lazy"></div>
-    <div class="card c-white"><h3>{F("Un podium","A podium")}</h3><p>{F("Le gagnant prend tout. Une story à partager à la fin.","Winner takes all. A story to share at the end.")}</p><img src="img/chill.webp" alt="" loading="lazy"></div>
+<section class="band ink">
+  <div class="wrap">
+    <h2 class="display">{F('Une soirée. <span class="neon">Un gagnant.</span>','One night. <span class="neon">One winner.</span>')}</h2>
+    <p class="sub">{F("Une carte tombe, tu la joues devant tout le monde, le téléphone compte les points. Face-à-face, records, tenues où le premier qui craque a perdu.","A card comes up, you play it in front of everyone, the phone keeps score. Face-offs, records, holds where the first to crack loses.")}</p>
   </div>
-</div></section>
+  <div class="strip" data-l="fr"><img src="img/shot-fr-1.jpg" alt="Accueil de l'app" width="640" height="1391" loading="lazy"><img src="img/shot-fr-2.jpg" alt="Face-à-face sans pitié" width="640" height="1391" loading="lazy"><img src="img/shot-fr-3.jpg" alt="Qui craque en premier ?" width="640" height="1391" loading="lazy"><img src="img/shot-fr-4.jpg" alt="Bats le record" width="640" height="1391" loading="lazy"><img src="img/shot-fr-5.jpg" alt="Le gagnant prend tout" width="640" height="1391" loading="lazy"><img src="img/shot-fr-6.jpg" alt="Du fou rire au vrai sport" width="640" height="1391" loading="lazy"><img src="img/shot-fr-7.jpg" alt="232 défis, zéro excuse" width="640" height="1391" loading="lazy"></div>
+  <div class="strip" data-l="en"><img src="img/shot-en-1.jpg" alt="App home" width="640" height="1391" loading="lazy"><img src="img/shot-en-2.jpg" alt="Face-off, no mercy" width="640" height="1391" loading="lazy"><img src="img/shot-en-3.jpg" alt="Who cracks first?" width="640" height="1391" loading="lazy"><img src="img/shot-en-4.jpg" alt="Beat the record" width="640" height="1391" loading="lazy"><img src="img/shot-en-5.jpg" alt="Winner takes all" width="640" height="1391" loading="lazy"><img src="img/shot-en-6.jpg" alt="From silly to seriously sweaty" width="640" height="1391" loading="lazy"><img src="img/shot-en-7.jpg" alt="232 dares, zero excuses" width="640" height="1391" loading="lazy"></div>
+  <div class="wrap"><p class="hint">{F("Fais défiler →","Scroll →")}</p></div>
+</section>
 
-<section class="band ink"><div class="wrap">
-  <h2>{F("Pour ta prochaine soirée.","For your next night in.")}</h2>
-  <p class="sub">{F("Pas de compte, pas de matériel. Juste un peu de place.","No account, no gear. Just a bit of room.")}</p>
-  <div class="facts">
-    <div class="fact"><b>232</b>{F("défis illustrés","illustrated challenges")}</div>
-    <div class="fact"><b>2–10</b>{F("joueurs sur un téléphone","players on one phone")}</div>
-    <div class="fact"><b>7</b>{F("ambiances de soirée, du chill au brutal","game moods, from chill to brutal")}</div>
+<section class="band ink" style="padding-top:8px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="fact"><b>232</b>{F("défis illustrés, du fou rire au vrai sport","illustrated dares, from silly to seriously sweaty")}</div>
+      <div class="fact"><b>76</b>{F("défis express quand on n'a que cinq minutes","express dares for when you only have five minutes")}</div>
+      <div class="fact"><b>2–10</b>{F("joueurs sur un seul téléphone","players on a single phone")}</div>
+    </div>
   </div>
-</div></section>
+</section>
 
-<section class="band"><div class="wrap">
-  <h2>{F("Dans l'app","Inside the app")}</h2>
-  <div class="shots" data-l="fr">
-    <img src="img/fr-1-accroche.jpg" alt="Tenue à quatre" loading="lazy"><img src="img/fr-2-face-a-face.jpg" alt="Face-à-face" loading="lazy"><img src="img/fr-3-record.jpg" alt="Record" loading="lazy"><img src="img/fr-5-podium.jpg" alt="Podium" loading="lazy">
+<section class="ink closing">
+  <div class="wrap">
+    <h2 class="display">{F('Pas de compte. Pas de matériel. <span class="neon">Zéro excuse.</span>','No account. No gear. <span class="neon">Zero excuses.</span>')}</h2>
+    {store()}
   </div>
-  <div class="shots" data-l="en">
-    <img src="img/en-1-hook.jpg" alt="Four-player hold" loading="lazy"><img src="img/en-2-face-off.jpg" alt="Face-off" loading="lazy"><img src="img/en-3-record.jpg" alt="Record" loading="lazy"><img src="img/en-5-podium.jpg" alt="Podium" loading="lazy">
-  </div>
-</div></section>
+</section>
 ''' + FOOT
 
 def doc(t_fr, t_en, h_fr, h_en, body_fr, body_en, dated=True):

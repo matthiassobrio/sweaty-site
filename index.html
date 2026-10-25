@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sweaty · The party game that makes you sweat</title>
-<meta name="title-fr" content="Sweaty · Le jeu de soirée qui fait suer"><meta name="title-en" content="Sweaty · The party game that makes you sweat">
-<meta name="description" content="Workout challenges with friends, on a single phone.">
-<meta property="og:title" content="Sweaty · The party game that makes you sweat"><meta property="og:description" content="Workout challenges with friends, on a single phone.">
-<meta property="og:image" content="img/en-1-hook.jpg">
+<meta name="title-fr" content="Sweaty · Le party game qui fait suer"><meta name="title-en" content="Sweaty · The party game that makes you sweat">
+<meta name="description" content="Workout dares with friends, on a single phone. 2 to 10 players.">
+<meta property="og:title" content="Sweaty · The party game that makes you sweat"><meta property="og:description" content="Workout dares with friends, on a single phone. 2 to 10 players.">
+<meta property="og:image" content="https://matthiassobrio.github.io/sweaty-site/img/hero-wide.jpg">
 <meta name="theme-color" content="#5E18F1">
 <link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
 <link rel="stylesheet" href="style.css">
@@ -16,6 +16,10 @@
 <body>
 
 <header class="hero">
+  <picture>
+    <source media="(max-width:600px)" srcset="img/hero-tall.jpg">
+    <img class="bg" src="img/hero-wide.jpg" alt="" width="2400" height="1738">
+  </picture>
   <div class="wrap bar">
   <a class="logo" href="./" aria-label="Sweaty"><img src="img/wordmark.png" alt="Sweaty" width="600" height="184"></a>
   <nav>
@@ -24,52 +28,45 @@
     <span class="langs" role="group" aria-label="Language"><button data-set="fr" lang="fr">FR</button><button data-set="en" lang="en">EN</button></span>
   </nav>
 </div>
-  <div class="wrap hero-grid">
-    <div class="hero-cta">
-      <h1><span data-l="fr">Le jeu de soirée qui fait <span class="hl">suer.</span></span><span data-l="en">The party game that makes you <span class="hl">sweat.</span></span></h1>
-      <p class="lead"><span data-l="fr">Des défis sportifs entre potes. Un seul téléphone.</span><span data-l="en">Workout challenges with friends. One phone.</span></p>
-      <span class="store" aria-label="App Store">
+  <div class="wrap hero-copy">
+    <h1 class="display"><span data-l="fr">Le party game qui fait <span class="neon">suer.</span></span><span data-l="en">The party game that makes you <span class="neon">sweat.</span></span></h1>
+    <p class="lead"><span data-l="fr">Un seul téléphone · 2 à 10 joueurs</span><span data-l="en">One phone · 2–10 players</span></p>
+    <span class="store" aria-label="App Store">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
   <span><small><span data-l="fr">Bientôt sur</span><span data-l="en">Coming soon to</span></small><b>App Store</b></span>
 </span>
-    </div>
-    <div class="hero-shots">
-      <img class="shot" data-l="fr" src="img/hero-fr.jpg" alt="Écran de Sweaty : une tenue à quatre joueurs" width="920" height="1320">
-      <img class="shot" data-l="en" src="img/hero-en.jpg" alt="Sweaty screen: a four-player hold" width="920" height="1320">
-    </div>
   </div>
 </header>
 
-<section class="band"><div class="wrap">
-  <h2><span data-l="fr">Pose le téléphone. Bouge.</span><span data-l="en">Put the phone down. Move.</span></h2>
-  <p class="sub"><span data-l="fr">Chacun son tour, une carte tombe. Tu la joues devant tout le monde. Le téléphone compte les points.</span><span data-l="en">One card at a time. You play it in front of everyone. The phone keeps score.</span></p>
-  <div class="cards">
-    <div class="card c-neon"><h3><span data-l="fr">Face-à-face</span><span data-l="en">Face-offs</span></h3><p><span data-l="fr">Deux joueurs, un défi. Le premier qui lâche a perdu.</span><span data-l="en">Two players, one challenge. First to drop loses.</span></p><img src="img/armwrestle.webp" alt="" loading="lazy"></div>
-    <div class="card c-purple"><h3><span data-l="fr">Tous ensemble</span><span data-l="en">All together</span></h3><p><span data-l="fr">Un chrono pour tout le monde. On touche celui qui craque.</span><span data-l="en">One timer for everyone. Tap whoever cracks.</span></p><img src="img/dance.webp" alt="" loading="lazy"></div>
-    <div class="card c-blue"><h3><span data-l="fr">Bats le record</span><span data-l="en">Beat the record</span></h3><p><span data-l="fr">Le plus de pompes, le plus long gainage. Le record reste.</span><span data-l="en">Most push-ups, longest plank. The record stays.</span></p><img src="img/climber.webp" alt="" loading="lazy"></div>
-    <div class="card c-white"><h3><span data-l="fr">Un podium</span><span data-l="en">A podium</span></h3><p><span data-l="fr">Le gagnant prend tout. Une story à partager à la fin.</span><span data-l="en">Winner takes all. A story to share at the end.</span></p><img src="img/chill.webp" alt="" loading="lazy"></div>
+<section class="band ink">
+  <div class="wrap">
+    <h2 class="display"><span data-l="fr">Une soirée. <span class="neon">Un gagnant.</span></span><span data-l="en">One night. <span class="neon">One winner.</span></span></h2>
+    <p class="sub"><span data-l="fr">Une carte tombe, tu la joues devant tout le monde, le téléphone compte les points. Face-à-face, records, tenues où le premier qui craque a perdu.</span><span data-l="en">A card comes up, you play it in front of everyone, the phone keeps score. Face-offs, records, holds where the first to crack loses.</span></p>
   </div>
-</div></section>
+  <div class="strip" data-l="fr"><img src="img/shot-fr-1.jpg" alt="Accueil de l'app" width="640" height="1391" loading="lazy"><img src="img/shot-fr-2.jpg" alt="Face-à-face sans pitié" width="640" height="1391" loading="lazy"><img src="img/shot-fr-3.jpg" alt="Qui craque en premier ?" width="640" height="1391" loading="lazy"><img src="img/shot-fr-4.jpg" alt="Bats le record" width="640" height="1391" loading="lazy"><img src="img/shot-fr-5.jpg" alt="Le gagnant prend tout" width="640" height="1391" loading="lazy"><img src="img/shot-fr-6.jpg" alt="Du fou rire au vrai sport" width="640" height="1391" loading="lazy"><img src="img/shot-fr-7.jpg" alt="232 défis, zéro excuse" width="640" height="1391" loading="lazy"></div>
+  <div class="strip" data-l="en"><img src="img/shot-en-1.jpg" alt="App home" width="640" height="1391" loading="lazy"><img src="img/shot-en-2.jpg" alt="Face-off, no mercy" width="640" height="1391" loading="lazy"><img src="img/shot-en-3.jpg" alt="Who cracks first?" width="640" height="1391" loading="lazy"><img src="img/shot-en-4.jpg" alt="Beat the record" width="640" height="1391" loading="lazy"><img src="img/shot-en-5.jpg" alt="Winner takes all" width="640" height="1391" loading="lazy"><img src="img/shot-en-6.jpg" alt="From silly to seriously sweaty" width="640" height="1391" loading="lazy"><img src="img/shot-en-7.jpg" alt="232 dares, zero excuses" width="640" height="1391" loading="lazy"></div>
+  <div class="wrap"><p class="hint"><span data-l="fr">Fais défiler →</span><span data-l="en">Scroll →</span></p></div>
+</section>
 
-<section class="band ink"><div class="wrap">
-  <h2><span data-l="fr">Pour ta prochaine soirée.</span><span data-l="en">For your next night in.</span></h2>
-  <p class="sub"><span data-l="fr">Pas de compte, pas de matériel. Juste un peu de place.</span><span data-l="en">No account, no gear. Just a bit of room.</span></p>
-  <div class="facts">
-    <div class="fact"><b>232</b><span data-l="fr">défis illustrés</span><span data-l="en">illustrated challenges</span></div>
-    <div class="fact"><b>2–10</b><span data-l="fr">joueurs sur un téléphone</span><span data-l="en">players on one phone</span></div>
-    <div class="fact"><b>7</b><span data-l="fr">ambiances de soirée, du chill au brutal</span><span data-l="en">game moods, from chill to brutal</span></div>
+<section class="band ink" style="padding-top:8px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="fact"><b>232</b><span data-l="fr">défis illustrés, du fou rire au vrai sport</span><span data-l="en">illustrated dares, from silly to seriously sweaty</span></div>
+      <div class="fact"><b>76</b><span data-l="fr">défis express quand on n'a que cinq minutes</span><span data-l="en">express dares for when you only have five minutes</span></div>
+      <div class="fact"><b>2–10</b><span data-l="fr">joueurs sur un seul téléphone</span><span data-l="en">players on a single phone</span></div>
+    </div>
   </div>
-</div></section>
+</section>
 
-<section class="band"><div class="wrap">
-  <h2><span data-l="fr">Dans l'app</span><span data-l="en">Inside the app</span></h2>
-  <div class="shots" data-l="fr">
-    <img src="img/fr-1-accroche.jpg" alt="Tenue à quatre" loading="lazy"><img src="img/fr-2-face-a-face.jpg" alt="Face-à-face" loading="lazy"><img src="img/fr-3-record.jpg" alt="Record" loading="lazy"><img src="img/fr-5-podium.jpg" alt="Podium" loading="lazy">
+<section class="ink closing">
+  <div class="wrap">
+    <h2 class="display"><span data-l="fr">Pas de compte. Pas de matériel. <span class="neon">Zéro excuse.</span></span><span data-l="en">No account. No gear. <span class="neon">Zero excuses.</span></span></h2>
+    <span class="store" aria-label="App Store">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+  <span><small><span data-l="fr">Bientôt sur</span><span data-l="en">Coming soon to</span></small><b>App Store</b></span>
+</span>
   </div>
-  <div class="shots" data-l="en">
-    <img src="img/en-1-hook.jpg" alt="Four-player hold" loading="lazy"><img src="img/en-2-face-off.jpg" alt="Face-off" loading="lazy"><img src="img/en-3-record.jpg" alt="Record" loading="lazy"><img src="img/en-5-podium.jpg" alt="Podium" loading="lazy">
-  </div>
-</div></section>
+</section>
 <footer><div class="wrap row">
   <span>© <span id="y">2026</span> Sweaty · Matthias Sobrio</span>
   <nav>
