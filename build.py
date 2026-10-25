@@ -31,6 +31,7 @@ def bar():
   <nav>
     <a class="hide-s" href="support.html">{F("Aide","Support")}</a>
     <a class="hide-s" href="privacy.html">{F("Confidentialité","Privacy")}</a>
+    <a class="hide-s" href="terms.html">{F("Conditions","Terms")}</a>
     <span class="langs" role="group" aria-label="Language"><button data-set="fr" lang="fr">FR</button><button data-set="en" lang="en">EN</button></span>
   </nav>
 </div>'''
@@ -51,7 +52,7 @@ FOOT = f'''<footer><div class="wrap row">
 def store():
     return f'''<span class="store" aria-label="App Store">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
-  <span><small>{F("Bientôt sur","Coming soon to")}</small><b>App Store</b></span>
+  <span><small>{F("Bientôt sur","Coming soon to")}</small><b>{F("l’App Store","the App Store")}</b></span>
 </span>'''
 
 # ---------------- index ----------------
@@ -92,6 +93,9 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
 
 <section class="ink closing">
   <div class="wrap">
+    <div class="mascots" aria-hidden="true">
+      <img src="img/m-jumpingjack.webp" alt="" loading="lazy"><img src="img/m-dance.webp" alt="" loading="lazy"><img src="img/m-armwrestle.webp" alt="" loading="lazy"><img src="img/m-climber.webp" alt="" loading="lazy"><img src="img/m-chill.webp" alt="" loading="lazy">
+    </div>
     <h2 class="display">{F('Pas de compte. Pas de matériel. <span class="neon">Zéro excuse.</span>','No account. No gear. <span class="neon">Zero excuses.</span>')}</h2>
     {store()}
   </div>
@@ -296,6 +300,7 @@ pages = {
  "terms.html": doc("Sweaty · Conditions d'utilisation","Sweaty · Terms of Use","Conditions d'utilisation","Terms of Use",TERMS_FR,TERMS_EN),
  "support.html": doc("Sweaty · Aide et contact","Sweaty · Support","Aide et contact","Support",SUP_FR,SUP_EN,dated=False),
 }
+pages['index.html']=pages['index.html'].replace('<body>','<body class="home">',1)
 for n, html in pages.items():
     (OUT/n).write_text(html, encoding="utf-8")
 print("written", list(pages))

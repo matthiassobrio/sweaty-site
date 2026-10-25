@@ -95,3 +95,13 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px;font-weight:700;color:var(--ink)
   section.band{padding:52px 0}
   .fact b{font-size:52px}
 }
+/* mascots above the closing call */
+.mascots{display:flex;justify-content:center;align-items:flex-end;gap:clamp(6px,2vw,22px);margin:0 auto 38px;max-width:760px}
+.mascots img{width:auto;height:clamp(64px,11vw,132px);filter:drop-shadow(0 10px 16px rgba(0,0,0,.45))}
+.mascots img:nth-child(odd){transform:rotate(-5deg)}
+.mascots img:nth-child(even){transform:rotate(4deg) translateY(-6px)}
+@media (max-width:480px){.mascots img:nth-child(2),.mascots img:nth-child(4){display:none}}
+/* the homepage stays black down to the footer */
+body.home{background:var(--ink)}
+body.home footer{color:#8e8996;border-top-color:#2a2730}
+body.home footer nav{color:#fff}
