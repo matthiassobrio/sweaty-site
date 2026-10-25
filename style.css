@@ -42,7 +42,15 @@ h2.display{font-weight:400;letter-spacing:.005em;font-size:clamp(42px,6vw,76px);
 .ink{background:var(--ink);color:#fff}
 .ink .sub{color:#bdb9c4}
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.gallery img{width:100%;border-radius:22px;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 20px 44px rgba(0,0,0,.55)}
+/* one layout for every tile: title on top, phone at the same height, cut by the tile's bottom edge */
+.tile{margin:0;container-type:inline-size;position:relative;aspect-ratio:1320/2868;overflow:hidden;border-radius:22px;background:var(--ink);box-shadow:0 0 0 1px rgba(255,255,255,.16),0 20px 44px rgba(0,0,0,.55)}
+.tile figcaption{position:absolute;left:8cqw;right:6cqw;top:9cqw}
+.tile figcaption b{display:block;font-size:12cqw;line-height:.98;color:#fff}
+.tile figcaption .cap{display:block;margin-top:3.5cqw;font-weight:900;font-size:4.6cqw;line-height:1.25;color:#fff}
+.tile .phone{position:absolute;left:9cqw;right:9cqw;top:var(--phone-top,52cqw);padding:1.6cqw;border-radius:11cqw;background:#0E0D10;box-shadow:0 4cqw 7cqw rgba(0,0,0,.55),inset 0 0 0 .3cqw #2A282E}
+.tile .phone img{display:block;width:100%;height:auto;border-radius:9.4cqw}
+/* English has one three-line title: every phone moves down by one line so they stay level */
+html.l-en .tile{--phone-top:64cqw}
 .hint{display:none;color:#8e8996;font-size:14px;font-weight:700;margin:6px 0 0}
 .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
 .fact{border:2px solid #34303b;border-radius:24px;padding:22px;color:#d9d6de}
@@ -88,7 +96,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px;font-weight:700;color:var(--ink)
   .bar nav .hide-s{display:none}
   .gallery{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:4px 20px 22px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .gallery::-webkit-scrollbar{display:none}
-  .gallery img{flex:0 0 min(62%,300px);scroll-snap-align:start}
+  .gallery .tile{flex:0 0 min(62%,300px);scroll-snap-align:start}
   .hint{display:block}
 }
 @media (max-width:600px){

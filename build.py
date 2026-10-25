@@ -1,5 +1,7 @@
-import sys, pathlib
+import sys, pathlib, hashlib
 OUT = pathlib.Path(sys.argv[1])
+CSSV = hashlib.md5((OUT/"style.css").read_bytes()).hexdigest()[:8]
+JSV = hashlib.md5((OUT/"lang.js").read_bytes()).hexdigest()[:8]
 UPDATED_FR = "22 octobre 2026"; UPDATED_EN = "October 22, 2026"
 
 def F(fr, en, tag="span"):
@@ -19,8 +21,8 @@ def head(t_fr, t_en, d_fr, d_en):
 <meta name="theme-color" content="#121016">
 <meta name="apple-itunes-app" content="app-id=6825698984">
 <link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
-<link rel="stylesheet" href="style.css">
-<script src="lang.js"></script>
+<link rel="stylesheet" href="style.css?v={CSSV}">
+<script src="lang.js?v={JSV}"></script>
 </head>
 <body>
 '''
@@ -75,8 +77,8 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
   <div class="wrap">
     <h2 class="display">{F('Une soirée. <span class="neon">Un gagnant.</span>','One night. <span class="neon">One winner.</span>')}</h2>
     <p class="sub">{F("Une carte tombe, tu la joues devant tout le monde, le téléphone compte les points. Face-à-face, records, tenues où le premier qui craque a perdu.","A card comes up, you play it in front of everyone, the phone keeps score. Face-offs, records, holds where the first to crack loses.")}</p>
-    <div class="gallery" data-l="fr"><img src="img/shot-fr-4.jpg" alt="Bats le record" width="640" height="1391" loading="lazy"><img src="img/shot-fr-5.jpg" alt="Le gagnant prend tout" width="640" height="1391" loading="lazy"><img src="img/shot-fr-6.jpg" alt="Du fou rire au vrai sport" width="640" height="1391" loading="lazy"><img src="img/shot-fr-7.jpg" alt="232 défis, zéro excuse" width="640" height="1391" loading="lazy"></div>
-    <div class="gallery" data-l="en"><img src="img/shot-en-4.jpg" alt="Beat the record" width="640" height="1391" loading="lazy"><img src="img/shot-en-5.jpg" alt="Winner takes all" width="640" height="1391" loading="lazy"><img src="img/shot-en-6.jpg" alt="From silly to seriously sweaty" width="640" height="1391" loading="lazy"><img src="img/shot-en-7.jpg" alt="232 dares, zero excuses" width="640" height="1391" loading="lazy"></div>
+    <div class="gallery" data-l="fr"><figure class="tile"><figcaption><b class="display">Bats le<br><span class="neon">record.</span></b><span class="cap">76 défis express</span></figcaption><div class="phone"><img src="img/cap-fr-4.jpg" alt="Record de la maison battu par Léa" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">Le gagnant<br>prend <span class="neon">tout.</span></b><span class="cap">Le podium à partager en story</span></figcaption><div class="phone"><img src="img/cap-fr-5.jpg" alt="Podium de fin de partie" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">Du fou rire<br>au vrai <span class="neon">sport.</span></b><span class="cap">Choisis l’ambiance de la soirée</span></figcaption><div class="phone"><img src="img/cap-fr-6.jpg" alt="Les soirées de Sweaty" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">232 défis.<br><span class="neon">Zéro excuse.</span></b><span class="cap">Squats, pompes, gainage et plus</span></figcaption><div class="phone"><img src="img/cap-fr-7.jpg" alt="Choix des défis express" width="620" height="1348" loading="lazy"></div></figure></div>
+    <div class="gallery" data-l="en"><figure class="tile"><figcaption><b class="display">Beat the<br><span class="neon">record.</span></b><span class="cap">76 express dares</span></figcaption><div class="phone"><img src="img/cap-en-4.jpg" alt="House record beaten by Léa" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">Winner<br>takes <span class="neon">all.</span></b><span class="cap">Share the podium to your story</span></figcaption><div class="phone"><img src="img/cap-en-5.jpg" alt="End-of-game podium" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">From silly to<br>seriously <span class="neon">sweaty.</span></b><span class="cap">Pick the vibe for the night</span></figcaption><div class="phone"><img src="img/cap-en-6.jpg" alt="Sweaty game nights" width="620" height="1348" loading="lazy"></div></figure><figure class="tile"><figcaption><b class="display">232 dares.<br><span class="neon">Zero excuses.</span></b><span class="cap">Squats, push-ups, planks and more</span></figcaption><div class="phone"><img src="img/cap-en-7.jpg" alt="Picking express dares" width="620" height="1348" loading="lazy"></div></figure></div>
     <p class="hint">{F("Fais défiler →","Scroll →")}</p>
   </div>
 </section>
