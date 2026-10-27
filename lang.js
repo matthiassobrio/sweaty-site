@@ -1,7 +1,7 @@
 // Language: ?lang=fr|en, then the visitor's last choice, then the browser.
 // Contact address: set CONTACT once, it fills every .contact block.
 (function () {
-  var CONTACT = '';
+  var CONTACT = 'contact@sweatygame.com';
   var root = document.documentElement;
   function pick() {
     var q = (location.search.match(/[?&]lang=(fr|en)/) || [])[1];
