@@ -39,7 +39,7 @@ def bar():
 </div>'''
 
 FOOT = f'''<footer><div class="wrap row">
-  <span>© <span id="y">2026</span> Sweaty · Matthias Sobrio</span>
+  <span>© <span id="y">2026</span> Sweaty</span>
   <nav>
     <a href="./">{F("Accueil","Home")}</a>
     <a href="support.html">{F("Aide et contact","Support")}</a>
