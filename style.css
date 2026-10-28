@@ -38,7 +38,7 @@ html.l-fr .langs [data-set=fr],html.l-en .langs [data-set=en]{background:var(--n
 section.band{padding:72px 0}
 h2{font-weight:900;font-size:clamp(32px,4.5vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 14px}
 h2.display .nw{white-space:nowrap}
-h2.display{font-weight:400;letter-spacing:.005em;font-size:clamp(42px,6vw,76px);line-height:.95}
+h2.display{font-weight:400;letter-spacing:.005em;font-size:clamp(42px,6vw,76px);line-height:1.06}
 .sub{color:var(--muted);font-size:19px;margin:0 0 36px;max-width:46ch}
 .ink{background:var(--ink);color:#fff}
 .ink .sub{color:#bdb9c4}
