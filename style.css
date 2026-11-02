@@ -118,3 +118,30 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px;font-weight:700;color:var(--ink)
 body.home{background:var(--ink)}
 body.home footer{color:#8e8996;border-top-color:#2a2730}
 body.home footer nav{color:#fff}
+
+/* /go: the page a shared podium links to. One ink screen: the duo, the dare, the badge. */
+.go-body{min-height:100svh;display:flex;flex-direction:column}
+.go [hidden]{display:none!important}
+.go-page{flex:1;display:flex;flex-direction:column;color:#fff;background:var(--ink)}
+.go-page .bar{width:100%;max-width:1080px;margin:0 auto;padding-left:20px;padding-right:20px}
+.go{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 20px 64px;max-width:760px;margin:0 auto;width:100%}
+/* The sticker takes whatever height the text leaves: the screen is always full, two lines more or less. */
+.go-art{flex:1 1 0;min-height:160px;max-height:480px;width:100%;display:flex;align-items:center;justify-content:center;margin:0 0 12px}
+.go-duo{height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(0,0,0,.5));transform:rotate(-3deg)}
+.go h1{font-size:clamp(64px,19vw,96px);margin:0 0 16px;line-height:.92}
+.go .hl{background:var(--neon);color:var(--ink);padding:0 .07em;display:inline-block;line-height:.96}
+.go-rec{margin:0 0 10px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.go-rec-label{font-weight:900;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#bdb9c4}
+.go-rec b{color:var(--neon);font-size:clamp(34px,9vw,56px);line-height:1}
+.go-lead{font-weight:900;font-size:clamp(17px,4.4vw,24px);line-height:1.3;margin:0 0 28px;color:#fff}
+.go-lead .hook{display:none}.go-lead .hook.on{display:inline}
+.go .store{padding:14px 26px 14px 20px;transition:transform .15s}
+.go .store:hover{transform:translateY(-2px)}
+.go .store b{font-size:22px}
+@media (min-width:600px){.go .store{padding:18px 34px 18px 26px;border-radius:20px}.go .store svg{width:34px;height:34px}.go .store small{font-size:14px}.go .store b{font-size:27px}}
+.go-wait{margin:22px 0 0;font-size:14px;color:#8e8996;display:flex;align-items:center;gap:10px}
+.go-bar{width:56px;height:4px;border-radius:2px;background:#2a2730;overflow:hidden;display:inline-block}
+.go-bar i{display:block;height:100%;width:0;background:var(--neon);animation:go-fill 1.4s linear forwards}
+@keyframes go-fill{to{width:100%}}
+.go-body footer{padding:22px 0 28px}
+@media (max-width:480px){.go-page .bar nav .hide-s{display:none}}

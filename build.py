@@ -1,8 +1,13 @@
-import sys, pathlib, hashlib
+import sys, pathlib, hashlib, json
 OUT = pathlib.Path(sys.argv[1])
 CSSV = hashlib.md5((OUT/"style.css").read_bytes()).hexdigest()[:8]
 JSV = hashlib.md5((OUT/"lang.js").read_bytes()).hexdigest()[:8]
-UPDATED_FR = "22 octobre 2026"; UPDATED_EN = "October 22, 2026"
+UPDATED_FR = "2 novembre 2026"; UPDATED_EN = "November 2, 2026"
+# The /go page: a share link's click, counted at PostHog (EU, no cookie) before the App Store.
+POSTHOG_KEY = "phc_oCD946SSkJ4tAKrkd6mvr7YiN2otQcJM7UCzpSbLipkP"   # project 331963 (EU); empty = clicks are not counted
+POSTHOG_HOST = "https://eu.i.posthog.com"
+APPLE_PT = ""      # App Store Connect provider token (App Analytics > Campaigns); empty = no campaign on the store link
+APP_STORE = "https://apps.apple.com/app/id6825698984"
 
 def F(fr, en, tag="span"):
     return f'<{tag} data-l="fr">{fr}</{tag}><{tag} data-l="en">{en}</{tag}>'
@@ -116,12 +121,51 @@ def doc(t_fr, t_en, h_fr, h_en, body_fr, body_en, dated=True):
 </main>
 ''' + FOOT
 
+GO_SCRIPT = r'''<script>
+(function () {
+  var KEY = __KEY__, HOST = __HOST__, PT = __PT__, STORE = __STORE__;
+  var q = new URLSearchParams(location.search);
+  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'direct';
+  var e = (q.get('e') || '').slice(0, 60), n = (q.get('n') || '').slice(0, 12);
+  // Apple's campaign token on the store link: installs per source in App Analytics (needs the provider token).
+  var url = STORE + '?mt=8' + (PT ? '&pt=' + encodeURIComponent(PT) + '&ct=' + encodeURIComponent('go-' + s) : '');
+  // The sticker by source (a duel for a podium, a hero in motion for an express dare), one hook drawn at random.
+  if (s === 'express') { document.getElementById('duo').src = 'img/go-jumpingjack.webp'; }
+  var hooks = document.querySelectorAll('.go-lead .hook');
+  hooks[Math.floor(Math.random() * hooks.length)].className += ' on';
+  if (e && n) {
+    document.getElementById('rec').textContent = n + ' ' + e;
+    document.getElementById('challenge').hidden = false;
+    document.getElementById('h-plain').hidden = true;
+    document.getElementById('h-rec').hidden = false;
+  }
+  document.getElementById('store').href = url;
+  if (KEY) {
+    // A beacon survives the redirect that follows; text/plain spares the CORS preflight, which it would not.
+    try {
+      var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'go-' + Math.random().toString(36).slice(2),
+        properties: {source: s, challenge: !!(e && n), $process_person_profile: false, $current_url: location.href, $lib: 'sweaty-go'}});
+      var sent = navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'}));
+      if (!sent) {
+        fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
+      }
+    } catch (err) {}
+  }
+  if (q.has('stay')) {
+    document.getElementById('wait').hidden = true;
+  } else {
+    setTimeout(function () { location.replace(url); }, 1400);
+  }
+})();
+</script>
+'''
+
 CONTACT_FR = '<div class="note green contact"><p style="margin:0 0 4px">Écris-nous :</p><a class="mail" href="#">contact</a></div>'
 CONTACT_EN = '<div class="note green contact"><p style="margin:0 0 4px">Email us:</p><a class="mail" href="#">contact</a></div>'
 
 # ---------------- privacy ----------------
 PRIV_FR = f'''
-<div class="note"><b>En bref.</b> Sweaty n'a pas de compte, pas de publicité et pas d'outil de mesure d'audience. Les prénoms et les photos des joueurs restent sur ton téléphone. Nous ne vendons aucune donnée.</div>
+<div class="note"><b>En bref.</b> Sweaty n'a pas de compte et pas de publicité. Les prénoms et les photos des joueurs restent sur ton téléphone. L'app compte, de façon anonyme, comment elle est utilisée (parties jouées, partages), jamais qui joue. Nous ne vendons aucune donnée.</div>
 <h2>Qui sommes-nous</h2>
 <p>Sweaty est une application éditée par Matthias Sobrio, développeur indépendant. Il est responsable du traitement des données décrites ici.</p>
 <h2>Ce qui reste sur ton téléphone</h2>
@@ -137,19 +181,22 @@ PRIV_FR = f'''
 <h2>Abonnement et achats</h2>
 <p>Le paiement est géré par Apple. Nous ne voyons jamais tes coordonnées bancaires ni ton identifiant Apple.</p>
 <p>Pour vérifier si ton abonnement est actif, l'app utilise RevenueCat, un prestataire de gestion d'abonnements. RevenueCat reçoit un identifiant aléatoire créé par l'app, sans lien avec ton nom, ainsi que l'historique de tes achats dans Sweaty, ton pays de boutique et des informations techniques comme la version de l'app et du système. Ces données servent uniquement à activer ce que tu as acheté et à restaurer tes achats. La politique de RevenueCat se trouve sur <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</p>
+<h2>Statistiques d'utilisation</h2>
+<p>Pour savoir ce qui est joué et améliorer le jeu, l'app envoie quelques événements à PostHog, un outil de mesure hébergé dans l'Union européenne : ouverture de l'app, table prête, partie lancée et terminée (ambiance, nombre de cartes, nombre de joueurs, durée), défi express lancé, podium partagé, écran d'abonnement affiché. Ces événements portent le même identifiant aléatoire que RevenueCat, la version de l'app et du système, la langue et le pays approximatif déduit de l'adresse IP. Ils ne contiennent jamais de prénom, de photo ni de résultat nominatif, et aucun identifiant publicitaire n'est lu. La politique de PostHog se trouve sur <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
+<p>Quand tu ouvres un lien sweatygame.com/go partagé depuis l'app, cette page enregistre le clic (la source du lien et le pays approximatif), sans cookie, puis t'envoie vers l'App Store.</p>
 <h2>Partage</h2>
-<p>Quand tu appuies sur Partager, l'image de fin de partie est transmise à l'app que tu choisis, par exemple Instagram ou Messages. Rien n'est partagé sans ton geste. Ce que devient l'image ensuite dépend de la politique de cette app.</p>
+<p>Quand tu appuies sur Partager, l'image de fin de partie est transmise à l'app que tu choisis, par exemple Instagram ou Messages, avec un lien vers sweatygame.com qui indique d'où vient le partage (podium ou défi express) et, pour un défi express, le record à battre, sans aucun prénom. Rien n'est partagé sans ton geste. Ce que devient l'image ensuite dépend de la politique de cette app.</p>
 <h2>Ce que nous ne faisons pas</h2>
 <ul>
 <li>Pas de compte ni de connexion.</li>
 <li>Pas de publicité et pas de pistage entre apps ou sites.</li>
-<li>Pas d'outil d'analyse d'audience.</li>
+<li>Pas d'identifiant publicitaire, pas de demande de suivi.</li>
 <li>Aucune vente ni location de données.</li>
 </ul>
 <h2>Enfants</h2>
 <p>Sweaty ne s'adresse pas spécifiquement aux enfants de moins de 13 ans et ne collecte sciemment aucune donnée les concernant.</p>
 <h2>Tes droits</h2>
-<p>Comme nous ne conservons aucune donnée personnelle sur nos serveurs, la plupart de tes données sont entre tes mains : supprimer l'app les efface. Pour les données d'achat gérées par RevenueCat, tu peux nous demander leur accès ou leur suppression en nous écrivant. Tu peux aussi saisir la CNIL (cnil.fr) si tu estimes que tes droits ne sont pas respectés.</p>
+<p>Comme nous ne conservons aucune donnée personnelle sur nos serveurs, la plupart de tes données sont entre tes mains : supprimer l'app les efface. Pour les données d'achat gérées par RevenueCat et les statistiques d'utilisation chez PostHog, tu peux nous demander leur accès ou leur suppression en nous écrivant. Tu peux aussi saisir la CNIL (cnil.fr) si tu estimes que tes droits ne sont pas respectés.</p>
 <h2>Modifications</h2>
 <p>Si cette politique change, nous mettrons à jour cette page et sa date.</p>
 <div class="contact"><h2>Contact</h2>
@@ -157,7 +204,7 @@ PRIV_FR = f'''
 {CONTACT_FR}</div>
 '''
 PRIV_EN = f'''
-<div class="note"><b>In short.</b> Sweaty has no accounts, no ads and no analytics. Player names and photos stay on your phone. We never sell data.</div>
+<div class="note"><b>In short.</b> Sweaty has no accounts and no ads. Player names and photos stay on your phone. The app counts, anonymously, how it is used (games played, shares), never who plays. We never sell data.</div>
 <h2>Who we are</h2>
 <p>Sweaty is published by Matthias Sobrio, an independent developer, who is the data controller for the processing described here.</p>
 <h2>What stays on your phone</h2>
@@ -173,19 +220,22 @@ PRIV_EN = f'''
 <h2>Subscription and purchases</h2>
 <p>Payment is handled by Apple. We never see your payment details or your Apple ID.</p>
 <p>To check whether your subscription is active, the app uses RevenueCat, a subscription management provider. RevenueCat receives a random identifier created by the app, not linked to your name, along with your Sweaty purchase history, your store country and technical details such as app and OS version. This data is used only to unlock what you bought and to restore purchases. RevenueCat's policy is at <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</p>
+<h2>Usage statistics</h2>
+<p>To know what gets played and improve the game, the app sends a few events to PostHog, an analytics service hosted in the European Union: app opened, table ready, game started and finished (mood, number of cards, number of players, duration), express dare started, podium shared, subscription screen shown. These events carry the same random identifier as RevenueCat, the app and OS version, the language and an approximate country derived from the IP address. They never contain a name, a photo or a named result, and no advertising identifier is read. PostHog's policy is at <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
+<p>When you open a sweatygame.com/go link shared from the app, that page records the click (the link's source and an approximate country), without cookies, then sends you to the App Store.</p>
 <h2>Sharing</h2>
-<p>When you tap Share, the end-of-game image is handed to the app you pick, such as Instagram or Messages. Nothing is shared without your action. What happens to the image next is governed by that app's policy.</p>
+<p>When you tap Share, the end-of-game image is handed to the app you pick, such as Instagram or Messages, along with a link to sweatygame.com that says where the share comes from (podium or express dare) and, for an express dare, the record to beat, with no name on it. Nothing is shared without your action. What happens to the image next is governed by that app's policy.</p>
 <h2>What we don't do</h2>
 <ul>
 <li>No accounts or sign-in.</li>
 <li>No ads and no tracking across apps or websites.</li>
-<li>No analytics.</li>
+<li>No advertising identifier, no tracking prompt.</li>
 <li>No selling or renting of data.</li>
 </ul>
 <h2>Children</h2>
 <p>Sweaty is not directed at children under 13 and does not knowingly collect any data about them.</p>
 <h2>Your rights</h2>
-<p>Since we keep no personal data on our servers, most of your data is in your hands: deleting the app erases it. For purchase data held by RevenueCat, you can ask us for access or deletion by email. If you are in the EU, you may also lodge a complaint with your data protection authority.</p>
+<p>Since we keep no personal data on our servers, most of your data is in your hands: deleting the app erases it. For purchase data held by RevenueCat and usage statistics held by PostHog, you can ask us for access or deletion by email. If you are in the EU, you may also lodge a complaint with your data protection authority.</p>
 <h2>Changes</h2>
 <p>If this policy changes, we will update this page and its date.</p>
 <div class="contact"><h2>Contact</h2>
@@ -296,13 +346,38 @@ SUP_EN = f'''
 <p style="margin-top:28px">See also the <a href="privacy.html">Privacy Policy</a> and the <a href="terms.html">Terms of Use</a>.</p>
 '''
 
+# ---------------- go (share links) ----------------
+# A share from the app links here with its source (?s=podium, ?s=express) and, for an
+# express series, the record to beat (?e=Squats&n=12). One ink screen, the duo, the
+# dare in Anton, the store badge; the click is counted and the App Store opens after a
+# beat (&stay=1 keeps the page up, to look at it). GitHub Pages serves this file at /go.
+go = head("Sweaty · Bats-nous", "Sweaty · Beat us",
+          "Le party game qui fait suer. Installe-la pour ta prochaine soirée.", "The party game that makes you sweat. Get it for your next night in.") + f'''<div class="go-page">
+  {bar()}
+  <main class="go">
+    <div class="go-art"><img class="go-duo" id="duo" src="img/go-armwrestle.webp" alt="" width="1000" height="977"></div>
+    <p id="challenge" class="go-rec" hidden><span class="go-rec-label">{F("Record à battre","Record to beat")}</span><b class="display" id="rec"></b></p>
+    <h1 class="display" id="h-plain"><span data-l="fr">Bats-<span class="hl">nous.</span></span><span data-l="en">Beat <span class="hl">us.</span></span></h1>
+    <h1 class="display" id="h-rec" hidden><span data-l="fr">Bats le <span class="hl">record.</span></span><span data-l="en">Beat the <span class="hl">record.</span></span></h1>
+    <p class="go-lead"><span class="hook">{F("Qui craque en premier ?","Who cracks first?")}</span><span class="hook">{F("Prouve-le.","Prove it.")}</span><span class="hook">{F("Le party game qui fait suer.","The party game that makes you sweat.")}</span><span class="hook">{F("Un exo. Maintenant. Qui gagne ?","One move. Right now. Who wins?")}</span><br>{F("Un seul téléphone · 2 à 10 joueurs.","One phone · 2–10 players.")}</p>
+    <a id="store" class="store" href="{APP_STORE}" aria-label="App Store">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+      <span><small>{F("Télécharger sur","Download on")}</small><b>{F("l’App Store","the App Store")}</b></span>
+    </a>
+    <p class="go-wait" id="wait"><span class="go-bar"><i></i></span>{F("L’App Store s’ouvre…","Opening the App Store…")}</p>
+  </main>
+</div>
+''' + GO_SCRIPT.replace('__KEY__', json.dumps(POSTHOG_KEY)).replace('__HOST__', json.dumps(POSTHOG_HOST)).replace('__PT__', json.dumps(APPLE_PT)).replace('__STORE__', json.dumps(APP_STORE)) + FOOT
+
 pages = {
  "index.html": index,
+ "go.html": go,
  "privacy.html": doc("Sweaty · Confidentialité","Sweaty · Privacy Policy","Politique de confidentialité","Privacy Policy",PRIV_FR,PRIV_EN),
  "terms.html": doc("Sweaty · Conditions d'utilisation","Sweaty · Terms of Use","Conditions d'utilisation","Terms of Use",TERMS_FR,TERMS_EN),
  "support.html": doc("Sweaty · Aide et contact","Sweaty · Support","Aide et contact","Support",SUP_FR,SUP_EN,dated=False),
 }
 pages['index.html']=pages['index.html'].replace('<body>','<body class="home">',1)
+pages['go.html']=pages['go.html'].replace('<body>','<body class="home go-body">',1)
 for n, html in pages.items():
     (OUT/n).write_text(html, encoding="utf-8")
 print("written", list(pages))
