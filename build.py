@@ -72,6 +72,8 @@ HOME_SCRIPT = r'''<script>
   var ref = (document.referrer || '').toLowerCase();
   var known = [['ig', 'instagram'], ['instagram', 'instagram'], ['tiktok', 'tiktok'], ['facebook', 'facebook'], ['fb', 'facebook'], ['t.co', 'x'], ['twitter', 'x'], ['x.com', 'x'], ['youtu', 'youtube'], ['threads', 'threads'], ['snapchat', 'snapchat'], ['linkedin', 'linkedin'], ['reddit', 'reddit'], ['producthunt', 'producthunt']];
   if (!s) { for (var i = 0; i < known.length; i++) { if (utm === known[i][0] || ref.indexOf(known[i][0]) !== -1) { s = known[i][1]; break; } } }
+  // Instagram sometimes tags a bio link with only its click id (fbclid, igsh), without utm_source.
+  if (!s && (q.has('fbclid') || q.has('igsh') || q.has('igshid'))) { s = 'instagram'; }
   if (s) { location.replace('/go?s=' + encodeURIComponent(s)); }
 })();
 </script>
