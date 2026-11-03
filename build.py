@@ -12,7 +12,7 @@ APP_STORE = "https://apps.apple.com/app/id6825698984"
 def F(fr, en, tag="span"):
     return f'<{tag} data-l="fr">{fr}</{tag}><{tag} data-l="en">{en}</{tag}>'
 
-def head(t_fr, t_en, d_fr, d_en):
+def head(t_fr, t_en, d_fr, d_en, home=False):
     return f'''<!doctype html>
 <html class="l-en" lang="en">
 <head>
@@ -25,7 +25,7 @@ def head(t_fr, t_en, d_fr, d_en):
 <meta property="og:image" content="https://sweatygame.com/img/hero-wide-8.jpg">
 <meta name="theme-color" content="#121016">
 <meta name="apple-itunes-app" content="app-id=6825698984">
-<link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
+{HOME_SCRIPT if home else ""}<link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
 <link rel="stylesheet" href="style.css?v={CSSV}">
 <script src="lang.js?v={JSV}"></script>
 </head>
@@ -64,32 +64,22 @@ def store():
 
 HOME_SCRIPT = r'''<script>
 (function () {
-  // Where a visit to the home comes from: a bio link (Instagram, TikTok… send their referrer) or an explicit ?s=.
-  // Counted like a /go click, so the sources compare in one table. Nothing stored, no cookie.
-  var KEY = __KEY__, HOST = __HOST__;
-  if (!KEY) { return; }
+  // A visit that comes from a bio link (Instagram adds utm_source=ig, TikTok and the others send their referrer)
+  // lands on the dare page, /go, which counts the click by its source and opens the App Store. A direct visit stays here.
   var q = new URLSearchParams(location.search);
   var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40);
-  if (!s) {
-    var r = (document.referrer || '').toLowerCase();
-    var known = [['instagram.com', 'instagram'], ['tiktok.com', 'tiktok'], ['facebook.com', 'facebook'], ['t.co', 'x'], ['twitter.com', 'x'], ['x.com', 'x'], ['youtube.com', 'youtube'], ['youtu.be', 'youtube'], ['threads.', 'threads'], ['snapchat.com', 'snapchat'], ['linkedin.com', 'linkedin'], ['reddit.com', 'reddit'], ['producthunt.com', 'producthunt']];
-    for (var i = 0; i < known.length; i++) { if (r.indexOf(known[i][0]) !== -1) { s = known[i][1]; break; } }
-  }
-  if (!s) { return; }
-  try {
-    var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'home-' + Math.random().toString(36).slice(2),
-      properties: {source: s, landing: 'home', $process_person_profile: false, $current_url: location.href, $referrer: document.referrer || '', $lib: 'sweaty-home'}});
-    if (!(navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'})))) {
-      fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
-    }
-  } catch (err) {}
+  var utm = (q.get('utm_source') || '').toLowerCase();
+  var ref = (document.referrer || '').toLowerCase();
+  var known = [['ig', 'instagram'], ['instagram', 'instagram'], ['tiktok', 'tiktok'], ['facebook', 'facebook'], ['fb', 'facebook'], ['t.co', 'x'], ['twitter', 'x'], ['x.com', 'x'], ['youtu', 'youtube'], ['threads', 'threads'], ['snapchat', 'snapchat'], ['linkedin', 'linkedin'], ['reddit', 'reddit'], ['producthunt', 'producthunt']];
+  if (!s) { for (var i = 0; i < known.length; i++) { if (utm === known[i][0] || ref.indexOf(known[i][0]) !== -1) { s = known[i][1]; break; } } }
+  if (s) { location.replace('/go?s=' + encodeURIComponent(s)); }
 })();
 </script>
 '''
 
 # ---------------- index ----------------
 index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game that makes you sweat",
-             "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.") + f'''
+             "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.", home=True) + f'''
 <header class="hero">
   <picture>
     <source media="(max-width:860px)" srcset="img/hero-phone-8.jpg">
@@ -132,7 +122,7 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
     {store()}
   </div>
 </section>
-''' + HOME_SCRIPT.replace('__KEY__', json.dumps(POSTHOG_KEY)).replace('__HOST__', json.dumps(POSTHOG_HOST)) + FOOT
+''' + FOOT
 
 def doc(t_fr, t_en, h_fr, h_en, body_fr, body_en, dated=True):
     sub = F(f"Dernière mise à jour : {UPDATED_FR}", f"Last updated: {UPDATED_EN}", "p") if dated else F("On répond à chaque message.","We answer every message.","p")
