@@ -72,6 +72,29 @@
 </span>
   </div>
 </section>
+<script>
+(function () {
+  // Where a visit to the home comes from: a bio link (Instagram, TikTok… send their referrer) or an explicit ?s=.
+  // Counted like a /go click, so the sources compare in one table. Nothing stored, no cookie.
+  var KEY = "phc_oCD946SSkJ4tAKrkd6mvr7YiN2otQcJM7UCzpSbLipkP", HOST = "https://eu.i.posthog.com";
+  if (!KEY) { return; }
+  var q = new URLSearchParams(location.search);
+  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40);
+  if (!s) {
+    var r = (document.referrer || '').toLowerCase();
+    var known = [['instagram.com', 'instagram'], ['tiktok.com', 'tiktok'], ['facebook.com', 'facebook'], ['t.co', 'x'], ['twitter.com', 'x'], ['x.com', 'x'], ['youtube.com', 'youtube'], ['youtu.be', 'youtube'], ['threads.', 'threads'], ['snapchat.com', 'snapchat'], ['linkedin.com', 'linkedin'], ['reddit.com', 'reddit'], ['producthunt.com', 'producthunt']];
+    for (var i = 0; i < known.length; i++) { if (r.indexOf(known[i][0]) !== -1) { s = known[i][1]; break; } }
+  }
+  if (!s) { return; }
+  try {
+    var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'home-' + Math.random().toString(36).slice(2),
+      properties: {source: s, landing: 'home', $process_person_profile: false, $current_url: location.href, $referrer: document.referrer || '', $lib: 'sweaty-home'}});
+    if (!(navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'})))) {
+      fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
+    }
+  } catch (err) {}
+})();
+</script>
 <footer><div class="wrap row">
   <span>© <span id="y">2026</span> Sweaty</span>
   <nav>

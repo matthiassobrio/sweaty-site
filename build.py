@@ -62,6 +62,31 @@ def store():
   <span><small>{F("Bientôt sur","Coming soon to")}</small><b>{F("l’App Store","the App Store")}</b></span>
 </span>'''
 
+HOME_SCRIPT = r'''<script>
+(function () {
+  // Where a visit to the home comes from: a bio link (Instagram, TikTok… send their referrer) or an explicit ?s=.
+  // Counted like a /go click, so the sources compare in one table. Nothing stored, no cookie.
+  var KEY = __KEY__, HOST = __HOST__;
+  if (!KEY) { return; }
+  var q = new URLSearchParams(location.search);
+  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40);
+  if (!s) {
+    var r = (document.referrer || '').toLowerCase();
+    var known = [['instagram.com', 'instagram'], ['tiktok.com', 'tiktok'], ['facebook.com', 'facebook'], ['t.co', 'x'], ['twitter.com', 'x'], ['x.com', 'x'], ['youtube.com', 'youtube'], ['youtu.be', 'youtube'], ['threads.', 'threads'], ['snapchat.com', 'snapchat'], ['linkedin.com', 'linkedin'], ['reddit.com', 'reddit'], ['producthunt.com', 'producthunt']];
+    for (var i = 0; i < known.length; i++) { if (r.indexOf(known[i][0]) !== -1) { s = known[i][1]; break; } }
+  }
+  if (!s) { return; }
+  try {
+    var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'home-' + Math.random().toString(36).slice(2),
+      properties: {source: s, landing: 'home', $process_person_profile: false, $current_url: location.href, $referrer: document.referrer || '', $lib: 'sweaty-home'}});
+    if (!(navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'})))) {
+      fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
+    }
+  } catch (err) {}
+})();
+</script>
+'''
+
 # ---------------- index ----------------
 index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game that makes you sweat",
              "Des défis sportifs entre potes, sur un seul téléphone. 2 à 10 joueurs.", "Workout dares with friends, on a single phone. 2 to 10 players.") + f'''
@@ -107,7 +132,7 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
     {store()}
   </div>
 </section>
-''' + FOOT
+''' + HOME_SCRIPT.replace('__KEY__', json.dumps(POSTHOG_KEY)).replace('__HOST__', json.dumps(POSTHOG_HOST)) + FOOT
 
 def doc(t_fr, t_en, h_fr, h_en, body_fr, body_en, dated=True):
     sub = F(f"Dernière mise à jour : {UPDATED_FR}", f"Last updated: {UPDATED_EN}", "p") if dated else F("On répond à chaque message.","We answer every message.","p")
