@@ -125,7 +125,7 @@ GO_SCRIPT = r'''<script>
 (function () {
   var KEY = __KEY__, HOST = __HOST__, PT = __PT__, STORE = __STORE__;
   var q = new URLSearchParams(location.search);
-  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'direct';
+  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || __DEFAULT__;
   var e = (q.get('e') || '').slice(0, 60), n = (q.get('n') || '').slice(0, 12);
   // Apple's campaign token on the store link: installs per source in App Analytics (needs the provider token).
   var url = STORE + '?mt=8' + (PT ? '&pt=' + encodeURIComponent(PT) + '&ct=' + encodeURIComponent('go-' + s) : '');
@@ -351,7 +351,8 @@ SUP_EN = f'''
 # express series, the record to beat (?e=Squats&n=12). One ink screen, the duo, the
 # dare in Anton, the store badge; the click is counted and the App Store opens after a
 # beat (&stay=1 keeps the page up, to look at it). GitHub Pages serves this file at /go.
-go = head("Sweaty · Bats-nous", "Sweaty · Beat us",
+def go_page(default_source):
+  return head("Sweaty · Bats-nous", "Sweaty · Beat us",
           "Le party game qui fait suer. Installe-la pour ta prochaine soirée.", "The party game that makes you sweat. Get it for your next night in.") + f'''<div class="go-page">
   {bar()}
   <main class="go">
@@ -367,17 +368,23 @@ go = head("Sweaty · Bats-nous", "Sweaty · Beat us",
     <p class="go-wait" id="wait"><span class="go-bar"><i></i></span>{F("L’App Store s’ouvre…","Opening the App Store…")}</p>
   </main>
 </div>
-''' + GO_SCRIPT.replace('__KEY__', json.dumps(POSTHOG_KEY)).replace('__HOST__', json.dumps(POSTHOG_HOST)).replace('__PT__', json.dumps(APPLE_PT)).replace('__STORE__', json.dumps(APP_STORE)) + FOOT
+''' + GO_SCRIPT.replace('__KEY__', json.dumps(POSTHOG_KEY)).replace('__HOST__', json.dumps(POSTHOG_HOST)).replace('__PT__', json.dumps(APPLE_PT)).replace('__STORE__', json.dumps(APP_STORE)).replace('__DEFAULT__', json.dumps(default_source)) + FOOT
+
+# The same page under a clean address for a profile's bio: sweatygame.com/instagram counts as source "instagram".
+go = go_page('direct')
 
 pages = {
  "index.html": index,
  "go.html": go,
+ "instagram.html": go_page('instagram'),
+ "tiktok.html": go_page('tiktok'),
  "privacy.html": doc("Sweaty · Confidentialité","Sweaty · Privacy Policy","Politique de confidentialité","Privacy Policy",PRIV_FR,PRIV_EN),
  "terms.html": doc("Sweaty · Conditions d'utilisation","Sweaty · Terms of Use","Conditions d'utilisation","Terms of Use",TERMS_FR,TERMS_EN),
  "support.html": doc("Sweaty · Aide et contact","Sweaty · Support","Aide et contact","Support",SUP_FR,SUP_EN,dated=False),
 }
 pages['index.html']=pages['index.html'].replace('<body>','<body class="home">',1)
-pages['go.html']=pages['go.html'].replace('<body>','<body class="home go-body">',1)
+for n in ('go.html', 'instagram.html', 'tiktok.html'):
+    pages[n]=pages[n].replace('<body>','<body class="home go-body">',1)
 for n, html in pages.items():
     (OUT/n).write_text(html, encoding="utf-8")
 print("written", list(pages))

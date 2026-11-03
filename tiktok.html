@@ -1,0 +1,88 @@
+<!doctype html>
+<html class="l-en" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sweaty · Beat us</title>
+<meta name="title-fr" content="Sweaty · Bats-nous"><meta name="title-en" content="Sweaty · Beat us">
+<meta name="description" content="The party game that makes you sweat. Get it for your next night in.">
+<meta property="og:title" content="Sweaty · Beat us"><meta property="og:description" content="The party game that makes you sweat. Get it for your next night in.">
+<meta property="og:image" content="https://sweatygame.com/img/hero-wide-8.jpg">
+<meta name="theme-color" content="#121016">
+<meta name="apple-itunes-app" content="app-id=6825698984">
+<link rel="icon" href="img/favicon.png"><link rel="apple-touch-icon" href="img/icon.png">
+<link rel="stylesheet" href="style.css?v=c065d36a">
+<script src="lang.js?v=2d3f7bec"></script>
+</head>
+<body class="home go-body">
+<div class="go-page">
+  <div class="wrap bar">
+  <a class="logo" href="./" aria-label="Sweaty"><img src="img/wordmark.png" alt="Sweaty" width="600" height="184"></a>
+  <nav>
+    <a class="hide-s" href="support.html"><span data-l="fr">Aide</span><span data-l="en">Support</span></a>
+    <a class="hide-s" href="privacy.html"><span data-l="fr">Confidentialité</span><span data-l="en">Privacy</span></a>
+    <a class="hide-s" href="terms.html"><span data-l="fr">Conditions</span><span data-l="en">Terms</span></a>
+    <span class="langs" role="group" aria-label="Language"><button data-set="fr" lang="fr">FR</button><button data-set="en" lang="en">EN</button></span>
+  </nav>
+</div>
+  <main class="go">
+    <div class="go-art"><img class="go-duo" id="duo" src="img/go-armwrestle.webp" alt="" width="1000" height="977"></div>
+    <p id="challenge" class="go-rec" hidden><span class="go-rec-label"><span data-l="fr">Record à battre</span><span data-l="en">Record to beat</span></span><b class="display" id="rec"></b></p>
+    <h1 class="display" id="h-plain"><span data-l="fr">Bats-<span class="hl">nous.</span></span><span data-l="en">Beat <span class="hl">us.</span></span></h1>
+    <h1 class="display" id="h-rec" hidden><span data-l="fr">Bats le <span class="hl">record.</span></span><span data-l="en">Beat the <span class="hl">record.</span></span></h1>
+    <p class="go-lead"><span class="hook"><span data-l="fr">Qui craque en premier ?</span><span data-l="en">Who cracks first?</span></span><span class="hook"><span data-l="fr">Prouve-le.</span><span data-l="en">Prove it.</span></span><span class="hook"><span data-l="fr">Le party game qui fait suer.</span><span data-l="en">The party game that makes you sweat.</span></span><span class="hook"><span data-l="fr">Un exo. Maintenant. Qui gagne ?</span><span data-l="en">One move. Right now. Who wins?</span></span><br><span data-l="fr">Un seul téléphone · 2 à 10 joueurs.</span><span data-l="en">One phone · 2–10 players.</span></p>
+    <a id="store" class="store" href="https://apps.apple.com/app/id6825698984" aria-label="App Store">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+      <span><small><span data-l="fr">Télécharger sur</span><span data-l="en">Download on</span></small><b><span data-l="fr">l’App Store</span><span data-l="en">the App Store</span></b></span>
+    </a>
+    <p class="go-wait" id="wait"><span class="go-bar"><i></i></span><span data-l="fr">L’App Store s’ouvre…</span><span data-l="en">Opening the App Store…</span></p>
+  </main>
+</div>
+<script>
+(function () {
+  var KEY = "phc_oCD946SSkJ4tAKrkd6mvr7YiN2otQcJM7UCzpSbLipkP", HOST = "https://eu.i.posthog.com", PT = "", STORE = "https://apps.apple.com/app/id6825698984";
+  var q = new URLSearchParams(location.search);
+  var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || "tiktok";
+  var e = (q.get('e') || '').slice(0, 60), n = (q.get('n') || '').slice(0, 12);
+  // Apple's campaign token on the store link: installs per source in App Analytics (needs the provider token).
+  var url = STORE + '?mt=8' + (PT ? '&pt=' + encodeURIComponent(PT) + '&ct=' + encodeURIComponent('go-' + s) : '');
+  // The sticker by source (a duel for a podium, a hero in motion for an express dare), one hook drawn at random.
+  if (s === 'express') { document.getElementById('duo').src = 'img/go-jumpingjack.webp'; }
+  var hooks = document.querySelectorAll('.go-lead .hook');
+  hooks[Math.floor(Math.random() * hooks.length)].className += ' on';
+  if (e && n) {
+    document.getElementById('rec').textContent = n + ' ' + e;
+    document.getElementById('challenge').hidden = false;
+    document.getElementById('h-plain').hidden = true;
+    document.getElementById('h-rec').hidden = false;
+  }
+  document.getElementById('store').href = url;
+  if (KEY) {
+    // A beacon survives the redirect that follows; text/plain spares the CORS preflight, which it would not.
+    try {
+      var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'go-' + Math.random().toString(36).slice(2),
+        properties: {source: s, challenge: !!(e && n), $process_person_profile: false, $current_url: location.href, $lib: 'sweaty-go'}});
+      var sent = navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'}));
+      if (!sent) {
+        fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
+      }
+    } catch (err) {}
+  }
+  if (q.has('stay')) {
+    document.getElementById('wait').hidden = true;
+  } else {
+    setTimeout(function () { location.replace(url); }, 1400);
+  }
+})();
+</script>
+<footer><div class="wrap row">
+  <span>© <span id="y">2026</span> Sweaty</span>
+  <nav>
+    <a href="./"><span data-l="fr">Accueil</span><span data-l="en">Home</span></a>
+    <a href="support.html"><span data-l="fr">Aide et contact</span><span data-l="en">Support</span></a>
+    <a href="privacy.html"><span data-l="fr">Confidentialité</span><span data-l="en">Privacy Policy</span></a>
+    <a href="terms.html"><span data-l="fr">Conditions d'utilisation</span><span data-l="en">Terms of Use</span></a>
+  </nav>
+</div></footer>
+</body>
+</html>
