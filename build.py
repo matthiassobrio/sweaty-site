@@ -109,7 +109,6 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
   <div class="wrap">
     <div class="facts">
       <div class="fact"><b>232</b>{F("défis illustrés, du fou rire au vrai sport","illustrated dares, from silly to seriously sweaty")}</div>
-      <div class="fact"><b>76</b>{F("défis express quand on n'a que cinq minutes","express dares for when you only have five minutes")}</div>
       <div class="fact"><b>2–10</b>{F("joueurs sur un seul téléphone","players on a single phone")}</div>
     </div>
   </div>
