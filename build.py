@@ -117,7 +117,7 @@ index = head("Sweaty · Le party game qui fait suer", "Sweaty · The party game 
 <section class="ink closing">
   <div class="wrap">
     <div class="mascots" aria-hidden="true">
-      <img src="img/m-jumpingjack.webp" alt="" loading="lazy"><img src="img/m-dance.webp" alt="" loading="lazy"><img src="img/m-armwrestle.webp" alt="" loading="lazy"><img src="img/m-climber.webp" alt="" loading="lazy"><img src="img/m-chill.webp" alt="" loading="lazy">
+      <img src="img/m2-easy.webp" alt="" loading="lazy"><img src="img/m2-serious.webp" alt="" loading="lazy"><img src="img/m2-brutal.webp" alt="" loading="lazy"><img src="img/m2-custom.webp" alt="" loading="lazy">
     </div>
     <h2 class="display">{F('<span class="nw">Pas de compte.</span> <span class="nw">Pas de matériel.</span> <span class="neon nw">Zéro excuse.</span>','<span class="nw">No account.</span> <span class="nw">No gear.</span> <span class="neon nw">Zero excuses.</span>')}</h2>
     {store()}
