@@ -46,9 +46,11 @@ h2.display{font-weight:400;letter-spacing:.005em;font-size:clamp(42px,6vw,76px);
 /* one layout for every tile: title on top, phone at the same height, cut by the tile's bottom edge */
 .tile{margin:0;container-type:inline-size;position:relative;aspect-ratio:1320/2868;overflow:hidden;border-radius:22px;background:var(--ink);box-shadow:0 0 0 1px rgba(255,255,255,.16),0 20px 44px rgba(0,0,0,.55)}
 .tile figcaption{position:absolute;left:8cqw;right:6cqw;top:9cqw}
-.tile figcaption b{display:block;font-size:12cqw;line-height:.98;color:#fff}
+.tile figcaption b{display:block;font-size:12cqw;line-height:1.06;color:#fff}
 .tile figcaption .cap{display:block;margin-top:3.5cqw;font-weight:900;font-size:4.6cqw;line-height:1.25;color:#fff}
 .tile .phone{position:absolute;left:9cqw;right:9cqw;top:var(--phone-top,52cqw);padding:1.6cqw;border-radius:11cqw;background:#0E0D10;box-shadow:0 4cqw 7cqw rgba(0,0,0,.55),inset 0 0 0 .3cqw #2A282E}
+/* « Plus de 230 défis. » tient sur deux lignes : en français les quatre téléphones descendent d'une ligne, au même niveau. */
+html.l-fr .tile{--phone-top:64cqw}
 .tile .phone img{display:block;width:100%;height:auto;border-radius:9.4cqw}
 .hint{display:none;color:#8e8996;font-size:14px;font-weight:700;margin:6px 0 0}
 .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
