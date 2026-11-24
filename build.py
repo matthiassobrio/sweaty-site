@@ -382,7 +382,7 @@ def go_page(default_source):
           "Le party game qui fait suer. Installe-la pour ta prochaine soirée.", "The party game that makes you sweat. Get it for your next night in.") + f'''<div class="go-page">
   {bar()}
   <main class="go">
-    <div class="go-art"><img class="go-duo" id="duo" src="img/go2-duel.webp" alt="" width="1000" height="929"></div>
+    <div class="go-art"><img class="go-duo" id="duo" src="img/go3-amy.webp" alt="" width="851" height="1000"></div>
     <p id="challenge" class="go-rec" hidden><span class="go-rec-label">{F("Record à battre","Record to beat")}</span><b class="display" id="rec"></b></p>
     <h1 class="display" id="h-plain"><span data-l="fr">Bats-<span class="hl">nous.</span></span><span data-l="en">Beat <span class="hl">us.</span></span></h1>
     <h1 class="display" id="h-rec" hidden><span data-l="fr">Bats le <span class="hl">record.</span></span><span data-l="en">Beat the <span class="hl">record.</span></span></h1>
