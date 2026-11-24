@@ -2,7 +2,7 @@ import sys, pathlib, hashlib, json
 OUT = pathlib.Path(sys.argv[1])
 CSSV = hashlib.md5((OUT/"style.css").read_bytes()).hexdigest()[:8]
 JSV = hashlib.md5((OUT/"lang.js").read_bytes()).hexdigest()[:8]
-UPDATED_FR = "2 novembre 2026"; UPDATED_EN = "November 2, 2026"
+UPDATED_FR = "24 novembre 2026"; UPDATED_EN = "November 24, 2026"
 # The /go page: a share link's click, counted at PostHog (EU, no cookie) before the App Store.
 POSTHOG_KEY = "phc_oCD946SSkJ4tAKrkd6mvr7YiN2otQcJM7UCzpSbLipkP"   # project 331963 (EU); empty = clicks are not counted
 POSTHOG_HOST = "https://eu.i.posthog.com"
@@ -181,27 +181,32 @@ CONTACT_EN = '<div class="note green contact"><p style="margin:0 0 4px">Email us
 
 # ---------------- privacy ----------------
 PRIV_FR = f'''
-<div class="note"><b>En bref.</b> Sweaty n'a pas de compte et pas de publicité. Les prénoms et les photos des joueurs restent sur ton téléphone. L'app compte, de façon anonyme, comment elle est utilisée (parties jouées, partages), jamais qui joue. Nous ne vendons aucune donnée.</div>
+<div class="note"><b>En bref.</b> Sweaty n'a pas de compte et pas de publicité. Les prénoms, les photos et les films des joueurs restent sur ton téléphone tant que tu ne les partages pas toi-même. L'app compte, de façon anonyme, comment elle est utilisée (parties jouées, cartes passées, partages), jamais qui joue. Nous ne vendons aucune donnée.</div>
 <h2>Qui sommes-nous</h2>
 <p>Sweaty est une application éditée par Matthias Sobrio, développeur indépendant. Il est responsable du traitement des données décrites ici.</p>
 <h2>Ce qui reste sur ton téléphone</h2>
 <p>Pour faire tourner une partie, l'app enregistre localement, sur ton appareil uniquement :</p>
 <ul>
-<li>les prénoms des joueurs que tu saisis ;</li>
-<li>les photos des joueurs et la photo du podium, si tu choisis d'en prendre ou d'en importer ;</li>
-<li>tes réglages, tes records et l'avancement de tes parties.</li>
+<li>les prénoms des joueurs que tu saisis et leurs photos ;</li>
+<li>le gage que tu écris pour le dernier, si tu en choisis un ;</li>
+<li>les films des défis et du gage, si tu en tournes : ils sont gardés le temps de la soirée, puis effacés quand une nouvelle partie commence ;</li>
+<li>tes réglages, ta séance Custom, tes records et l'avancement de tes parties.</li>
 </ul>
 <p>Ces données ne sont jamais envoyées sur nos serveurs. Nous n'en avons d'ailleurs pas. Elles restent sur l'appareil jusqu'à ce que tu retires un joueur, que tu changes une photo ou que tu supprimes l'app.</p>
-<h2>Appareil photo et photothèque</h2>
-<p>L'app te demande l'accès à l'appareil photo ou à tes photos seulement quand tu ajoutes une photo à un joueur ou au podium. C'est facultatif. Tu peux jouer sans photo et retirer l'autorisation à tout moment dans Réglages.</p>
+<h2>Appareil photo, micro et photothèque</h2>
+<p>L'app te demande l'accès à l'appareil photo quand tu prends la photo d'un joueur ou que tu filmes un défi ou le gage, au micro pour que ce film ait du son, et à tes photos quand tu en choisis une pour un joueur. Tout cela est facultatif : tu peux jouer sans photo ni film, et retirer ces autorisations à tout moment dans Réglages.</p>
 <h2>Abonnement et achats</h2>
 <p>Le paiement est géré par Apple. Nous ne voyons jamais tes coordonnées bancaires ni ton identifiant Apple.</p>
 <p>Pour vérifier si ton abonnement est actif, l'app utilise RevenueCat, un prestataire de gestion d'abonnements. RevenueCat reçoit un identifiant aléatoire créé par l'app, sans lien avec ton nom, ainsi que l'historique de tes achats dans Sweaty, ton pays de boutique et des informations techniques comme la version de l'app et du système. Ces données servent uniquement à activer ce que tu as acheté et à restaurer tes achats. La politique de RevenueCat se trouve sur <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</p>
 <h2>Statistiques d'utilisation</h2>
-<p>Pour savoir ce qui est joué et améliorer le jeu, l'app envoie quelques événements à PostHog, un outil de mesure hébergé dans l'Union européenne : ouverture de l'app, table prête, partie lancée et terminée (ambiance, nombre de cartes, nombre de joueurs, durée), défi express lancé, podium partagé, écran d'abonnement affiché. Ces événements portent le même identifiant aléatoire que RevenueCat, la version de l'app et du système, la langue et le pays approximatif déduit de l'adresse IP. Ils ne contiennent jamais de prénom, de photo ni de résultat nominatif, et aucun identifiant publicitaire n'est lu. La politique de PostHog se trouve sur <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
-<p>Quand tu ouvres un lien sweatygame.com/go partagé depuis l'app, cette page enregistre le clic (la source du lien et le pays approximatif), sans cookie, puis t'envoie vers l'App Store.</p>
+<p>Pour savoir ce qui est joué et améliorer le jeu, l'app envoie des événements à PostHog, un outil de mesure hébergé dans l'Union européenne : ouverture et mise en arrière-plan de l'app, table prête (nombre de joueurs), partie lancée, prolongée, quittée ou terminée (niveau, nombre de cartes, nombre de joueurs, durée, gage choisi ou non), chaque carte jouée ou passée (le défi, son type, son issue et sa place dans la partie), défi filmé, résultat partagé, écran d'abonnement affiché et ce qui y est choisi, demande d'avis affichée, app ouverte depuis un de nos liens. Ces événements portent le même identifiant aléatoire que RevenueCat, la version de l'app et du système, la langue et le pays approximatif déduit de l'adresse IP. Ils ne contiennent jamais de prénom, de photo, de film ni le texte du gage, et aucun identifiant publicitaire n'est lu. La politique de PostHog se trouve sur <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
+<p>Quand tu ouvres un lien sweatygame.com/go, par exemple depuis Instagram ou TikTok, cette page enregistre le clic (la source du lien et le pays approximatif), sans cookie, puis t'envoie vers l'App Store.</p>
+<h2>Mises à jour de l'app</h2>
+<p>Au lancement, l'app demande à Expo, le service qui distribue ses mises à jour, s'il en existe une nouvelle. Cette demande ne contient que des informations techniques (version de l'app, système) et ton adresse IP, comme toute connexion. La politique d'Expo se trouve sur <a href="https://expo.dev/privacy">expo.dev/privacy</a>.</p>
 <h2>Partage</h2>
-<p>Quand tu appuies sur Partager, l'image de fin de partie est transmise à l'app que tu choisis, par exemple Instagram ou Messages, avec un lien vers sweatygame.com qui indique d'où vient le partage (podium ou défi express) et, pour un défi express, le record à battre, sans aucun prénom. Rien n'est partagé sans ton geste. Ce que devient l'image ensuite dépend de la politique de cette app.</p>
+<p>Quand tu appuies sur Partager, l'image de fin de partie ou le film choisi est transmis à l'app que tu choisis, par exemple Instagram ou Messages. Pour ouvrir l'éditeur de story d'Instagram, Sweaty lui transmet aussi son identifiant d'application Meta, rien qui te concerne. Rien n'est partagé sans ton geste. L'image et les films peuvent montrer les prénoms, les photos et les visages des joueurs : demande-leur leur accord avant de publier. Ce que devient le contenu ensuite dépend de la politique de l'app qui le reçoit.</p>
+<h2>Avis sur l'App Store</h2>
+<p>Après certaines parties, l'app peut demander à iOS d'afficher la fenêtre d'avis de l'App Store. C'est Apple qui décide de l'afficher et qui reçoit ta note ; nous ne voyons ni si elle s'affiche ni ce que tu réponds.</p>
 <h2>Ce que nous ne faisons pas</h2>
 <ul>
 <li>Pas de compte ni de connexion.</li>
@@ -220,27 +225,32 @@ PRIV_FR = f'''
 {CONTACT_FR}</div>
 '''
 PRIV_EN = f'''
-<div class="note"><b>In short.</b> Sweaty has no accounts and no ads. Player names and photos stay on your phone. The app counts, anonymously, how it is used (games played, shares), never who plays. We never sell data.</div>
+<div class="note"><b>In short.</b> Sweaty has no accounts and no ads. Player names, photos and videos stay on your phone unless you share them yourself. The app counts, anonymously, how it is used (games played, cards skipped, shares), never who plays. We never sell data.</div>
 <h2>Who we are</h2>
 <p>Sweaty is published by Matthias Sobrio, an independent developer, who is the data controller for the processing described here.</p>
 <h2>What stays on your phone</h2>
 <p>To run a game, the app stores the following locally, on your device only:</p>
 <ul>
-<li>the player names you type in;</li>
-<li>player photos and the podium photo, if you choose to take or import them;</li>
-<li>your settings, records and game progress.</li>
+<li>the player names you type in and their photos;</li>
+<li>the forfeit you write for last place, if you pick one;</li>
+<li>videos of challenges and of the forfeit, if you film any: they are kept for the evening, then erased when a new game starts;</li>
+<li>your settings, your Custom session, your records and game progress.</li>
 </ul>
 <p>This data is never sent to our servers. We don't run any. It stays on the device until you remove a player, change a photo or delete the app.</p>
-<h2>Camera and photo library</h2>
-<p>The app asks for camera or photo access only when you add a photo to a player or to the podium. It is optional. You can play without photos and revoke access at any time in Settings.</p>
+<h2>Camera, microphone and photo library</h2>
+<p>The app asks for camera access when you take a player's photo or film a challenge or the forfeit, for the microphone so that video has sound, and for your photos when you pick one for a player. All of it is optional: you can play without photos or videos, and revoke these permissions at any time in Settings.</p>
 <h2>Subscription and purchases</h2>
 <p>Payment is handled by Apple. We never see your payment details or your Apple ID.</p>
 <p>To check whether your subscription is active, the app uses RevenueCat, a subscription management provider. RevenueCat receives a random identifier created by the app, not linked to your name, along with your Sweaty purchase history, your store country and technical details such as app and OS version. This data is used only to unlock what you bought and to restore purchases. RevenueCat's policy is at <a href="https://www.revenuecat.com/privacy">revenuecat.com/privacy</a>.</p>
 <h2>Usage statistics</h2>
-<p>To know what gets played and improve the game, the app sends a few events to PostHog, an analytics service hosted in the European Union: app opened, table ready, game started and finished (mood, number of cards, number of players, duration), express dare started, podium shared, subscription screen shown. These events carry the same random identifier as RevenueCat, the app and OS version, the language and an approximate country derived from the IP address. They never contain a name, a photo or a named result, and no advertising identifier is read. PostHog's policy is at <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
-<p>When you open a sweatygame.com/go link shared from the app, that page records the click (the link's source and an approximate country), without cookies, then sends you to the App Store.</p>
+<p>To know what gets played and improve the game, the app sends events to PostHog, an analytics service hosted in the European Union: app opened and backgrounded, table ready (number of players), game started, extended, quit or finished (level, number of cards, number of players, duration, whether a forfeit was picked), each card played or skipped (the challenge, its type, its outcome and its place in the game), challenge filmed, result shared, subscription screen shown and what is picked on it, rating prompt shown, app opened from one of our links. These events carry the same random identifier as RevenueCat, the app and OS version, the language and an approximate country derived from the IP address. They never contain a name, a photo, a video or the text of the forfeit, and no advertising identifier is read. PostHog's policy is at <a href="https://posthog.com/privacy">posthog.com/privacy</a>.</p>
+<p>When you open a sweatygame.com/go link, for example from Instagram or TikTok, that page records the click (the link's source and an approximate country), without cookies, then sends you to the App Store.</p>
+<h2>App updates</h2>
+<p>At launch, the app asks Expo, the service that delivers its updates, whether a new one is available. This request contains only technical details (app version, operating system) and your IP address, as any connection does. Expo's policy is at <a href="https://expo.dev/privacy">expo.dev/privacy</a>.</p>
 <h2>Sharing</h2>
-<p>When you tap Share, the end-of-game image is handed to the app you pick, such as Instagram or Messages, along with a link to sweatygame.com that says where the share comes from (podium or express dare) and, for an express dare, the record to beat, with no name on it. Nothing is shared without your action. What happens to the image next is governed by that app's policy.</p>
+<p>When you tap Share, the end-of-game image or the video you pick is handed to the app you choose, such as Instagram or Messages. To open Instagram's story editor, Sweaty also passes it Sweaty's Meta app identifier, nothing about you. Nothing is shared without your action. The image and videos can show the players' names, photos and faces: ask them before you post. What happens to the content next is governed by the receiving app's policy.</p>
+<h2>App Store ratings</h2>
+<p>After some games, the app may ask iOS to show the App Store rating prompt. Apple decides whether it appears and receives your rating; we never see whether it showed or what you answered.</p>
 <h2>What we don't do</h2>
 <ul>
 <li>No accounts or sign-in.</li>
@@ -275,7 +285,7 @@ TERMS_FR = f'''
 </ul>
 <p>Tu joues sous ta propre responsabilité. Dans la limite permise par la loi, l'éditeur ne peut être tenu responsable des blessures ou des dommages liés à la pratique des défis.</p>
 <h2>Abonnement Sweaty Pro</h2>
-<p>Une partie de l'app est gratuite. L'abonnement Sweaty Pro débloque toutes les ambiances, les parties longues et tous les exercices express. Il est proposé à la semaine ou à l'année, au prix affiché dans l'app avant l'achat.</p>
+<p>Une partie de l'app est gratuite. L'abonnement Sweaty Pro débloque le niveau Brutal, le mode Custom et la suite des parties avec « On continue ». Il est proposé à la semaine ou à l'année, au prix affiché dans l'app avant l'achat.</p>
 <ul>
 <li>Le paiement est débité sur ton compte Apple à la confirmation de l'achat.</li>
 <li>L'abonnement se renouvelle automatiquement, sauf si tu le résilies au moins 24 heures avant la fin de la période en cours.</li>
@@ -308,7 +318,7 @@ TERMS_EN = f'''
 </ul>
 <p>You play at your own risk. To the extent permitted by law, the publisher is not liable for injuries or damage arising from the challenges.</p>
 <h2>Sweaty Pro subscription</h2>
-<p>Part of the app is free. A Sweaty Pro subscription unlocks every game mood, longer games and all express exercises. It is offered weekly or yearly, at the price shown in the app before purchase.</p>
+<p>Part of the app is free. A Sweaty Pro subscription unlocks the Brutal level, Custom mode and carrying on a game with “Keep going”. It is offered weekly or yearly, at the price shown in the app before purchase.</p>
 <ul>
 <li>Payment is charged to your Apple account when you confirm the purchase.</li>
 <li>The subscription renews automatically unless cancelled at least 24 hours before the end of the current period.</li>
@@ -334,10 +344,10 @@ SUP_FR = f'''
 <p>Un bug, une idée de défi, un souci d'abonnement : décris-nous ce qui se passe, avec ton modèle d'iPhone si c'est un bug.</p>
 <h2>Questions fréquentes</h2>
 <div class="faq">
-{qa("Comment on joue ?","Ajoute les joueurs, choisis une ambiance et pose le téléphone là où tout le monde le voit. Une carte tombe : solo, face-à-face, record ou tous ensemble. On joue, le téléphone compte les points, et le podium tombe à la fin.")}
+{qa("Comment on joue ?","Ajoute les joueurs, choisis un niveau, de Tranquille à Brutal, ou compose ta séance avec Custom, et pose le téléphone là où tout le monde le voit. Une carte tombe : solo, face-à-face, record ou tous ensemble. On joue, le téléphone compte les points, et le podium tombe à la fin.")}
 {qa("Combien de joueurs ?","De 2 à 10, sur un seul téléphone. Pas besoin que chacun installe l'app.")}
 {qa("Faut-il du matériel ?","Non. Un peu de place suffit. Certains défis utilisent un mur ou une chaise.")}
-{qa("Où vont les photos des joueurs ?","Elles restent sur ton téléphone. Rien n'est envoyé sur internet, sauf si tu partages toi-même l'image de fin de partie.")}
+{qa("Où vont les photos et les films des joueurs ?","Ils restent sur ton téléphone. Rien n'est envoyé sur internet, sauf si tu partages toi-même l'image de fin de partie ou un film. Les films sont effacés quand une nouvelle partie commence.")}
 {qa("J'ai changé de téléphone, comment récupérer mon abonnement ?","Ouvre l’écran d’abonnement et touche « Restaurer un achat », avec le même identifiant Apple que pour l'achat.")}
 {qa("Comment résilier mon abonnement ?","Sur ton iPhone : Réglages, puis ton nom, puis Abonnements, puis Sweaty. Résilie au moins 24 heures avant le renouvellement.")}
 {qa("Comment obtenir un remboursement ?","Les paiements passent par Apple. Fais ta demande sur reportaproblem.apple.com.")}
@@ -350,10 +360,10 @@ SUP_EN = f'''
 <p>A bug, a challenge idea, a subscription issue: tell us what happened, with your iPhone model if it's a bug.</p>
 <h2>FAQ</h2>
 <div class="faq">
-{qa("How do you play?","Add the players, pick a mood and set the phone where everyone can see it. A card comes up: solo, face-off, record or all together. You play, the phone keeps score, and the podium comes at the end.")}
+{qa("How do you play?","Add the players, pick a level, from Easy to Brutal, or build your own session with Custom, and set the phone where everyone can see it. A card comes up: solo, face-off, record or all together. You play, the phone keeps score, and the podium comes at the end.")}
 {qa("How many players?","From 2 to 10, on a single phone. Nobody else needs to install the app.")}
 {qa("Do I need any equipment?","No. A bit of room is enough. Some challenges use a wall or a chair.")}
-{qa("Where do player photos go?","They stay on your phone. Nothing is uploaded, unless you share the end-of-game image yourself.")}
+{qa("Where do player photos and videos go?","They stay on your phone. Nothing is uploaded, unless you share the end-of-game image or a video yourself. Videos are erased when a new game starts.")}
 {qa("I got a new phone. How do I get my subscription back?","Open the subscription screen and tap “Restore a purchase”, signed in with the Apple ID you bought with.")}
 {qa("How do I cancel my subscription?","On your iPhone: Settings, then your name, then Subscriptions, then Sweaty. Cancel at least 24 hours before renewal.")}
 {qa("How do I get a refund?","Payments go through Apple. Request one at reportaproblem.apple.com.")}
