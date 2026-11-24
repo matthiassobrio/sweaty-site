@@ -132,9 +132,6 @@ body.home footer nav{color:#fff}
 .go-duo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 28px rgba(0,0,0,.5));transform:rotate(-3deg)}
 .go h1{font-size:clamp(64px,19vw,96px);margin:0 0 16px;line-height:.92}
 .go .hl{background:var(--neon);color:var(--ink);padding:0 .07em;display:inline-block;line-height:.96}
-.go-rec{margin:0 0 10px;display:flex;flex-direction:column;align-items:center;gap:2px}
-.go-rec-label{font-weight:900;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#bdb9c4}
-.go-rec b{color:var(--neon);font-size:clamp(34px,9vw,56px);line-height:1}
 .go-lead{font-weight:900;font-size:clamp(17px,4.4vw,24px);line-height:1.3;margin:0 0 28px;color:#fff}
 .go-lead .hook{display:none}.go-lead .hook.on{display:inline}
 .go .store{padding:14px 26px 14px 20px;transition:transform .15s}

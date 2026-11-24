@@ -142,25 +142,17 @@ GO_SCRIPT = r'''<script>
   var KEY = __KEY__, HOST = __HOST__, PT = __PT__, STORE = __STORE__;
   var q = new URLSearchParams(location.search);
   var s = (q.get('s') || '').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || __DEFAULT__;
-  var e = (q.get('e') || '').slice(0, 60), n = (q.get('n') || '').slice(0, 12);
   // Apple's campaign token on the store link: installs per source in App Analytics (needs the provider token).
   var url = STORE + '?mt=8' + (PT ? '&pt=' + encodeURIComponent(PT) + '&ct=' + encodeURIComponent('go-' + s) : '');
-  // The sticker by source (a duel for a podium, a hero in motion for an express dare), one hook drawn at random.
-  if (s === 'express') { document.getElementById('duo').src = 'img/go2-jumpingjack.webp'; }
+  // One hook drawn at random.
   var hooks = document.querySelectorAll('.go-lead .hook');
   hooks[Math.floor(Math.random() * hooks.length)].className += ' on';
-  if (e && n) {
-    document.getElementById('rec').textContent = n + ' ' + e;
-    document.getElementById('challenge').hidden = false;
-    document.getElementById('h-plain').hidden = true;
-    document.getElementById('h-rec').hidden = false;
-  }
   document.getElementById('store').href = url;
   if (KEY) {
     // A beacon survives the redirect that follows; text/plain spares the CORS preflight, which it would not.
     try {
       var body = JSON.stringify({api_key: KEY, event: 'share_link_clicked', distinct_id: 'go-' + Math.random().toString(36).slice(2),
-        properties: {source: s, challenge: !!(e && n), $process_person_profile: false, $current_url: location.href, $lib: 'sweaty-go'}});
+        properties: {source: s, $process_person_profile: false, $current_url: location.href, $lib: 'sweaty-go'}});
       var sent = navigator.sendBeacon && navigator.sendBeacon(HOST + '/i/v0/e/', new Blob([body], {type: 'text/plain'}));
       if (!sent) {
         fetch(HOST + '/i/v0/e/', {method: 'POST', keepalive: true, headers: {'Content-Type': 'text/plain'}, body: body}).catch(function () {});
@@ -373,9 +365,8 @@ SUP_EN = f'''
 '''
 
 # ---------------- go (share links) ----------------
-# A share from the app links here with its source (?s=podium, ?s=express) and, for an
-# express series, the record to beat (?e=Squats&n=12). One ink screen, the duo, the
-# dare in Anton, the store badge; the click is counted and the App Store opens after a
+# A link of ours (a profile's bio, ?s=<source>) lands here. One ink screen, Amy daring
+# the visitor, the dare in Anton, the store badge; the click is counted and the App Store opens after a
 # beat (&stay=1 keeps the page up, to look at it). GitHub Pages serves this file at /go.
 def go_page(default_source):
   return head("Sweaty · Bats-nous", "Sweaty · Beat us",
@@ -383,9 +374,7 @@ def go_page(default_source):
   {bar()}
   <main class="go">
     <div class="go-art"><img class="go-duo" id="duo" src="img/go3-amy.webp" alt="" width="851" height="1000"></div>
-    <p id="challenge" class="go-rec" hidden><span class="go-rec-label">{F("Record à battre","Record to beat")}</span><b class="display" id="rec"></b></p>
-    <h1 class="display" id="h-plain"><span data-l="fr">Bats-<span class="hl">nous.</span></span><span data-l="en">Beat <span class="hl">us.</span></span></h1>
-    <h1 class="display" id="h-rec" hidden><span data-l="fr">Bats le <span class="hl">record.</span></span><span data-l="en">Beat the <span class="hl">record.</span></span></h1>
+    <h1 class="display"><span data-l="fr">Bats-<span class="hl">nous.</span></span><span data-l="en">Beat <span class="hl">us.</span></span></h1>
     <p class="go-lead"><span class="hook">{F("Qui craque en premier ?","Who cracks first?")}</span><span class="hook">{F("Prouve-le.","Prove it.")}</span><span class="hook">{F("Le party game qui fait suer.","The party game that makes you sweat.")}</span><span class="hook">{F("Un exo. Maintenant. Qui gagne ?","One move. Right now. Who wins?")}</span><br>{F("Un seul téléphone · 2 à 10 joueurs.","One phone · 2–10 players.")}</p>
     <a id="store" class="store" href="{APP_STORE}" aria-label="App Store">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm5 14.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
